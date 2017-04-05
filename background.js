@@ -37,7 +37,7 @@ var amazon_urls = [
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
     var url = details.url;
-    var queryStringIndex = url.indexOf('ref');
+    var queryStringIndex = url.indexOf('ref=');
     if (queryStringIndex !== -1) {
         var stripped = url.substr(0, queryStringIndex);
         if (stripped != url) {
