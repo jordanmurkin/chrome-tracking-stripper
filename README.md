@@ -1,11 +1,9 @@
 # Chrome Tracking Token Stripper
 
 This is a Google Chrome extension that strips Google Analytics (i.e. [Urchin
-Tracking Monitor][utm]) tokens from URL query strings. This is done *before*
+Tracking Monitor][utm]) and Amazon tracking tokens from URL query strings. This is done *before*
 the web request is made and result in both more private browsing as well as
 more aestethicly-pleasing URLs.
-
-Install from the [Chrome Web Store][store].
 
 The following [Google Analytics query string parameters][params] are stripped:
 
@@ -17,12 +15,16 @@ The following [Google Analytics query string parameters][params] are stripped:
  - utm_cid
  - utm_reader
 
+All Amazon tokens after and including the "ref" are stripped.
+
 This extension requires these [permissions][]:
 
  - `webRequest`, to use the [`chrome.webRequest` API][webRequest]
  - `webRequestBlocking`, to use `chrome.webRequest` in a blocking fashion
  - `http://*/*?*`, to filter http URLs
  - `https://*/*?*`, to filter https URLs
+  
+Original extension by Jordan Irwin can be found at [Chrome web store][store]
 
 [![Urchin Logo](icon-128.png "Urchin Logo")](http://www.openclipart.org/detail/69997)
 

@@ -15,3 +15,15 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     }
 },
 {urls: ['https://*/*?*', 'http://*/*?*'], types: ['main_frame']}, ['blocking']);
+
+chrome.webRequest.onBeforeRequest.addListener(function(details) {
+    var url = details.url;
+    var queryStringIndex = url.indexOf('ref');
+    if (queryStringIndex !== -1) {
+        var stripped = url.substr(0, queryStringIndex);
+        if (stripped != url) {
+            return {redirectUrl: stripped};
+        }   
+    }
+},
+{urls: ['*://*.amazon.co.uk/*/dp/*', '*://*.amazon.com/*/dp/*', '*://*.amazon.ca/*/dp/*'], types: ['main_frame']}, ['blocking']);
