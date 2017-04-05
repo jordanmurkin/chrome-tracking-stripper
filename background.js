@@ -1,20 +1,39 @@
 var utm_re = new RegExp('([\?\&]utm_(source|medium|term|campaign|content|cid|reader)=[^&#]+)', 'ig');
 
+function cleanUrl(url, index) {
+    if (url.charAt(index) === '&') {
+        url = url.substr(0, index) + '?' + url.substr(index + 1);
+    }
+    return url;
+}
+
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
     var url = details.url;
     var queryStringIndex = url.indexOf('?');
+    var stripped = url.replace('?ref=producthunt', '');
+    stripped = stripped.replace('&ref=producthunt', '');
+    
     if (url.indexOf('utm_') > queryStringIndex) {
-        var stripped = url.replace(utm_re, '');
-        if (stripped.charAt(queryStringIndex) === '&') {
-            stripped = stripped.substr(0, queryStringIndex) + '?' +
-                stripped.substr(queryStringIndex + 1)
-        }
-        if (stripped != url) {
-            return {redirectUrl: stripped};
-        }
+        stripped = stripped.replace(utm_re, '');
+        stripped = cleanUrl(stripped, queryStringIndex);
+    }
+    
+    if (stripped != url) {
+        return {
+            redirectUrl: stripped
+        };
     }
 },
-{urls: ['https://*/*?*', 'http://*/*?*'], types: ['main_frame']}, ['blocking']);
+{urls: ["<all_urls>"], types: ['main_frame']}, ['blocking']);
+
+var amazon_urls = [
+    '*://*.amazon.co.uk/*/dp/*',
+    '*://*.amazon.co.uk/d/*',
+    '*://*.amazon.co.uk/gp/*',
+    '*://*.amazon.com/*/dp/*',
+    '*://*.amazon.com/d/*',
+    '*://*.amazon.com/gp/*',
+];
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
     var url = details.url;
@@ -22,8 +41,10 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     if (queryStringIndex !== -1) {
         var stripped = url.substr(0, queryStringIndex);
         if (stripped != url) {
-            return {redirectUrl: stripped};
+            return {
+                redirectUrl: stripped
+            };
         }   
     }
 },
-{urls: ['*://*.amazon.co.uk/*/dp/*', '*://*.amazon.com/*/dp/*', '*://*.amazon.ca/*/dp/*'], types: ['main_frame']}, ['blocking']);
+{urls: amazon_urls, types: ['main_frame']}, ['blocking']);
