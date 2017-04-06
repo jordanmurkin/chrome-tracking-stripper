@@ -247,7 +247,6 @@ var google_urls = [
 ];
 
 var ggl_re = new RegExp('([\?\&](oq|aqs|sourceid|source|sa|ved|biw|bih|dpr|ie)=[^&#]+)', 'ig');
-var ggl_has_re = new RegExp('(#q=[^&#]+)', 'ig');
 
 chrome.webRequest.onBeforeRequest.addListener(function(details) {
     var url = details.url;
@@ -255,7 +254,6 @@ chrome.webRequest.onBeforeRequest.addListener(function(details) {
     
     if (queryStringIndex !== -1) {
         var stripped = url.replace(ggl_re, '');
-        stripped = stripped.replace(ggl_has_re, '');
         stripped = stripped.replace('&*', '');
         if (stripped != url) {
             return {
