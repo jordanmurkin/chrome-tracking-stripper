@@ -1,0 +1,42 @@
+[
+    {
+        "name": "Amazon",
+        "urls": [
+            "*://*.amazon.co.uk/*/dp/*",
+            "*://*.amazon.com/*/dp/*"
+        ],
+        "tags": [
+            "sr_1_2",
+            "qid",
+            "sr",
+            "pd_rd_i",
+            "pd_rd_r",
+            "pd_rd_w",
+            "pd_rd_wg",
+            "pf_rd_r",
+            "pf_rd_p",
+            "refRID",
+            "psc"
+        ]
+    },
+    {
+        "name": "Amazon",
+        "urls": [
+            "*://*.amazon.co.uk/gp/product/*",
+            "*://*.amazon.com/gp/product/*"
+        ],
+        "tags": [
+            "sr_1_2",
+            "qid",
+            "sr",
+            "pd_rd_i",
+            "pd_rd_r",
+            "pd_rd_w",
+            "pd_rd_wg",
+            "pf_rd_r",
+            "pf_rd_p",
+            "refRID",
+            "psc"
+        ]
+    }
+]
